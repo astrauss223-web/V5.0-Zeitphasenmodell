@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>JS Debug</title></head>
+<body>
+<div id="errors" style="font-family:monospace;white-space:pre;color:red;padding:20px;font-size:13px;"></div>
+<div id="ok" style="font-family:monospace;color:green;padding:20px;display:none;">✅ No errors - scripts executed successfully</div>
+
+<!-- Minimal stubs so the script doesn't crash on missing DOM elements -->
+<div id="timeline-container"></div>
+<div id="tower-container"></div>
+<div id="side-tower-container"></div>
+<div id="panel-layers"></div>
+<div id="panel-empty"></div>
+<div id="alloc-total"></div>
+<div id="alloc-bar-fill"></div>
+<div id="portfolio-country-summary"></div>
+<div id="portfolio-cluster-list"></div>
+<div id="phase-detail-card" style="display:none;"></div>
+<div id="detail-phase-name"></div>
+<div id="detail-duration"></div>
+<div id="detail-asset-class"></div>
+<div id="funds-modal" style="display:none;"></div>
+<div id="modal-title"></div>
+<div id="modal-search-input"></div>
+<div id="fund-list"></div>
+<div id="pdf-import-modal" style="display:none;"></div>
+<div id="pdf-import-modal-title"></div>
+<div id="pdf-import-modal-close"></div>
+<div id="pdf-import-modal-ok"></div>
+<div id="pdf-import-summary"></div>
+<div id="pdf-unmatched-section"></div>
+<div id="pdf-unmatched-list"></div>
+<div id="pdf-unmatched-count"></div>
+<div id="pdf-processing-modal" style="display:none;"></div>
+<div id="library-modal" style="display:none;"></div>
+<div id="library-modal-close"></div>
+<div id="library-list"></div>
+<div id="library-empty"></div>
+<div id="crawler-modal" style="display:none;"></div>
+<div id="crawler-modal-close"></div>
+<div id="crawler-no-server"></div>
+<div id="crawler-ready"></div>
+<div id="crawler-running"></div>
+<div id="crawler-done"></div>
+<div id="crawler-log"></div>
+<div id="crawler-progress-bar"></div>
+<div id="crawler-progress-label"></div>
+<div id="crawler-done-msg"></div>
+<button id="library-open-btn">Bibliothek</button>
+<button id="crawler-btn">Crawler</button>
+<button id="crawler-start-btn">Start</button>
+<button id="copy-cmd-btn">Copy</button>
+<button id="reset-portfolio-btn">Reset</button>
+<button id="print-overall-btn">Print</button>
+<input id="total-investment" type="text">
+<input id="total-investment-sparrate" type="text">
+<input id="depot-upload-input" type="file">
+<label id="depot-upload-label"><span id="depot-upload-label-text">Depot laden</span></label>
+<input id="import-save-name" type="text">
+<button id="import-save-btn">Save</button>
+<button id="import-load-btn">Load</button>
+<button id="import-json-dl-btn">DL</button>
+<input id="library-import-file" type="file">
+<div id="help-btn"></div>
+<div id="header-nav"></div>
+<div id="global-header"></div>
+<div id="financial-overview"></div>
+<div id="finanz-einmal-verplant"></div>
+<div id="finanz-einmal-verbleibend"></div>
+<div id="finanz-sparrate-verplant"></div>
+<div id="finanz-sparrate-verbleibend"></div>
+
+<script>
+window.onerror = function(msg, src, line, col, err) {
+    const div = document.getElementById('errors');
+    div.textContent += '❌ ERROR: ' + msg + '\n   at ' + src + ':' + line + ':' + col + '\n\n';
+    return false;
+};
+window.addEventListener('unhandledrejection', e => {
+    const div = document.getElementById('errors');
+    div.textContent += '❌ PROMISE REJECTION: ' + e.reason + '\n\n';
+});
+</script>
+<script src="fund_data.js"></script>
+<script src="app_v4.4.js"></script>
+<script>
+setTimeout(() => {
+    const div = document.getElementById('errors');
+    const btn = document.getElementById('library-open-btn');
+    const inp = document.getElementById('depot-upload-input');
+    if (div.textContent.trim() === '') {
+        document.getElementById('ok').style.display = 'block';
+        document.getElementById('errors').textContent = 
+            'library-open-btn has onclick: ' + (btn && btn.onclick !== null ? 'yes' : 'no') + '\n' +
+            'library-open-btn listeners: checking...\n';
+    }
+}, 500);
+</script>
+</body>
+</html>
